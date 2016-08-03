@@ -1,61 +1,99 @@
-'use strict'
 
-const foregroundColor = '#ebebff'
-const backgroundColor = '#24242e'
-const black = backgroundColor
-const slate = '#595969'
-const lslate = '#767693'
-const lightSlate = '#3f3f50'
-const blue = '#9d9dc8'
-const orange = '#dd672c'
-const lightOrange = '#fe8c52'
-const gray = '#6a574d'
-const brightBlack = slate
-const brightWhite = foregroundColor
+ const backgroundColor = '#24242e';
+ const foregroundColor = '#767693';
+ const borderColor = 'rgba(0, 0, 0, 0)';
+ const cursorColor = '#ff8b52'; // opacity set in .termCSS: see under
 
-const colors = {
-	black: black,
-	red: slate,
-	green: lightSlate,
-	yellow: blue,
-	blue: orange,
-	magenta: lightOrange,
-	cyan: lslate,
-	white: foregroundColor,
-	lightBlack: brightBlack,
-	lightRed: slate,
-	lightGreen: lslate,
-	lightYellow: blue,
-	lightBlue: blue,
-	lightMagenta: lightOrange,
-	lightCyan: gray,
-	lightWhite: foregroundColor
-}
+const colors = [
+  backgroundColor, //  black
+  '#ebebff', //  red
+  '#9d9dc8', //  green
+  '#6a574d', //  yellow
+  '#ebebff', //  blue
+  '#9d9dc8', //  magenta
+  '#dd672c', //  #ff8b52
+  '#595969', //
+  '#595969', //  git
+  '#ebebff', //  ??
+  '#595969', //  ??
+  '#9d9dc8', //  lightYellow
+  '#fe8c52', //  lightBlue
+  '#595969', //  lightMagenta
+  '#ff8b52', //  ??
+  '#24242e'  //  lightWhite
+]
 
 exports.decorateConfig = config => {
-	return Object.assign({}, config, {
-		backgroundColor,
-		foregroundColor,
-		borderColor: '#24242e',
-		cursorColor: orange,
-		colors: colors,
-		css: `
-			${config.css || ''}
-			.tab_active:before {
-				border-color: #fe8c52
-			}
-		`
-	})
-}
-
-exports.middleware = () => (next) => (action) => {
-  switch (action.type) {
-    case 'CONFIG_LOAD':
-    case 'CONFIG_RELOAD':
-      action.config.foregroundColor = foregroundColor
-      action.config.backgroundColor = backgroundColor
-      action.config.cursorColor = orange
-      action.config.colors = colors
-  }
-  next(action)
+  return Object.assign({}, config, {
+    backgroundColor,
+    foregroundColor,
+    cursorColor: cursorColor,
+    borderColor: borderColor,
+    colors: colors,
+    termCSS: `
+      ${config.termCSS || ''}
+      .cursor-node[focus="true"] {
+         opacity: .8 !important;
+       }
+      .cursor-node {
+        margin-left: 7px !important;
+        background-color: transparent !important;
+        border-bottom-style: solid !important;
+      }
+    `,
+    css: `
+      ${config.css || ''}
+      .header_header {
+        top: 0;
+        right: 0;
+        left: 0;
+      }
+      .first_gius0z {
+        margin-left: 0 !important;
+      }
+      .nav_1nk0jz0 {
+        font-size: 13px !important;
+        font-family: "Product Sans", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      }
+      
+      .tab_first {
+        margin-left: 0 !important;
+      }
+      .tabs_list {
+        background-color: #24242e !important;
+        border: none !important;
+      }
+      .tab_tab {
+        color: #767693 !important;
+      }
+      .tab_tab.tab_active {
+        font-weight: 500;
+        letter-spacing: .5px;
+        background-color: #24242e;
+        border-color: rgba(0, 0, 0, 0) !important;
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06);
+      }
+      .tab_tab.tab_active::before {
+        display: none;
+        border-bottom-color: #24242e;
+      }
+      .tabs_title, .tab_icon, .tab_tab.tab_active {
+        color: #ebebff !important;
+      }
+      .tab_tab.tab_hasActivity {
+        color: #ff8b52 !important;
+      }
+      .tab_text {
+        background-color: #2d2d39;
+        border-left: 2px solid #24242e;
+        box-shadow: inset 0px -1px 2px rgba(0,0,0,.075);
+        transition: all .3s;
+      }
+      .tab_tab.tab_active .tab_text,
+      .tab_tab:hover .tab_text {
+        background-color: #24242e !important;
+        box-shadow: none;
+      }
+      `
+  })
 }
