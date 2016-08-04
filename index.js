@@ -6,22 +6,27 @@
 
 const colors = [
   backgroundColor, //  black
-  '#ebebff', //  red
-  '#9d9dc8', //  green
-  '#6a574d', //  yellow
-  '#ebebff', //  blue
+  '#e05252', //  red
+  '#43d08a', //  green
+  '#e0c285', //  yellow
+  '#6a574d', //  blue
   '#9d9dc8', //  magenta
-  '#dd672c', //  #ff8b52
-  '#595969', //
-  '#595969', //  git
-  '#ebebff', //  ??
-  '#595969', //  ??
+  '#dd672c', //  cyan
+  '#595969', //  white
+  '#595969', //  lightBlack
+  '#ebebff', //  lightRed
+  '#595969', //  lightGreen
   '#9d9dc8', //  lightYellow
   '#fe8c52', //  lightBlue
   '#595969', //  lightMagenta
-  '#ff8b52', //  ??
+  '#ff8b52', //  lightCyan
   '#24242e'  //  lightWhite
 ]
+
+  // '#ebebff', //  red
+  // '#9d9dc8', //  green
+  // '#6a574d', //  yellow
+  // '#ebebff', //  blue
 
 exports.decorateConfig = config => {
   return Object.assign({}, config, {
